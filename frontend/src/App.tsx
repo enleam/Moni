@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import Categorias from './pages/Categorias';
 import Movimientos from './pages/Movimientos';
 import Presupuestos from './pages/Presupuestos';
+import Reportes from './pages/Reportes';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 
@@ -49,6 +50,15 @@ function App() {
         element={
           <PrivateRoute>
             <Presupuestos />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/reportes"
+        element={
+          <PrivateRoute>
+            <Reportes />
           </PrivateRoute>
         }
       />

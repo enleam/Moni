@@ -137,7 +137,7 @@ function Dashboard() {
           <Link to="/categorias">Categorías</Link>
           <Link to="/movimientos">Movimientos</Link>
           <Link to="/presupuestos">Presupuestos</Link>
-          <Link to="/dashboard">Reportes</Link>
+          <Link to="/reportes">Reportes</Link>
         </nav>
 
         <button onClick={handleCerrarSesion} className="logout-button">
