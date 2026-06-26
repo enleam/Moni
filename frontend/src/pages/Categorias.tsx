@@ -15,6 +15,8 @@ import type {
   TipoCategoria
 } from '../services/categoriaService';
 
+import ConfirmDialog from '../components/ConfirmDialog';
+
 function Categorias() {
   const navigate = useNavigate();
   const usuario = obtenerUsuarioLocal();
@@ -28,6 +30,9 @@ function Categorias() {
   const [mensaje, setMensaje] = useState('');
   const [error, setError] = useState('');
   const [cargando, setCargando] = useState(false);
+
+  const [categoriaAEliminar, setCategoriaAEliminar] = useState<Categoria | null>(null);
+  const [eliminando, setEliminando] = useState(false);
 
   const cargarCategorias = async () => {
     try {
@@ -102,28 +107,35 @@ function Categorias() {
     setError('');
   };
 
-  const handleEliminar = async (categoria: Categoria) => {
-    const confirmar = window.confirm(
-      `¿Seguro que deseas eliminar la categoría "${categoria.nombre}"?`
-    );
+  const abrirDialogEliminar = (categoria: Categoria) => {
+    setCategoriaAEliminar(categoria);
+    setMensaje('');
+    setError('');
+  };
 
-    if (!confirmar) {
+  const confirmarEliminarCategoria = async () => {
+    if (!categoriaAEliminar) {
       return;
     }
 
     try {
+      setEliminando(true);
       setMensaje('');
       setError('');
 
-      await eliminarCategoria(categoria.categoria_id);
+      await eliminarCategoria(categoriaAEliminar.categoria_id);
 
       setMensaje('Categoría eliminada correctamente.');
+      setCategoriaAEliminar(null);
+
       await cargarCategorias();
 
     } catch (error: any) {
       setError(
         error.response?.data?.mensaje || 'Error al eliminar categoría.'
       );
+    } finally {
+      setEliminando(false);
     }
   };
 
@@ -262,7 +274,7 @@ function Categorias() {
 
                       <button
                         className="danger-button"
-                        onClick={() => handleEliminar(categoria)}
+                        onClick={() => abrirDialogEliminar(categoria)}
                       >
                         Eliminar
                       </button>
@@ -299,7 +311,7 @@ function Categorias() {
 
                       <button
                         className="danger-button"
-                        onClick={() => handleEliminar(categoria)}
+                        onClick={() => abrirDialogEliminar(categoria)}
                       >
                         Eliminar
                       </button>
@@ -311,6 +323,22 @@ function Categorias() {
           </div>
         </section>
       </main>
+
+      <ConfirmDialog
+        abierto={!!categoriaAEliminar}
+        titulo="Eliminar categoría"
+        descripcion={
+          categoriaAEliminar
+            ? `¿Seguro que deseas eliminar la categoría "${categoriaAEliminar.nombre}"? Esta acción no borrará el registro de la base de datos, solo lo desactivará.`
+            : ''
+        }
+        textoConfirmar="Eliminar"
+        textoCancelar="Cancelar"
+        tipo="danger"
+        cargando={eliminando}
+        onConfirmar={confirmarEliminarCategoria}
+        onCerrar={() => setCategoriaAEliminar(null)}
+      />
     </div>
   );
 }
