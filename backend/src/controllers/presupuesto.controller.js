@@ -5,7 +5,8 @@ const {
   buscarPresupuestoExistente,
   crearPresupuesto,
   actualizarPresupuesto,
-  desactivarPresupuesto
+  desactivarPresupuesto,
+  reactivarPresupuesto
 } = require('../models/presupuesto.model');
 
 const obtenerPeriodo = (req) => {
@@ -159,8 +160,18 @@ const registrarPresupuesto = async (req, res) => {
     }
 
     if (presupuestoExistente && !presupuestoExistente.activo) {
-      return res.status(409).json({
-        mensaje: 'Ya existe un presupuesto eliminado para esta categoría y periodo. Edita el registro en SQL o usa otra categoría.'
+      const presupuestoReactivado = await reactivarPresupuesto({
+        presupuesto_id: presupuestoExistente.presupuesto_id,
+        usuario_id,
+        categoria_id: categoriaIdNumero,
+        anio: anioNumero,
+        mes: mesNumero,
+        monto_presupuestado: montoNumero
+      });
+
+      return res.status(200).json({
+        mensaje: 'Presupuesto reactivado correctamente.',
+        presupuesto: presupuestoReactivado
       });
     }
 

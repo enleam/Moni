@@ -243,6 +243,48 @@ const desactivarPresupuesto = async (presupuesto_id, usuario_id) => {
   return result.recordset[0];
 };
 
+const reactivarPresupuesto = async ({
+  presupuesto_id,
+  usuario_id,
+  categoria_id,
+  anio,
+  mes,
+  monto_presupuestado
+}) => {
+  const pool = await poolPromise;
+
+  const result = await pool.request()
+    .input('presupuesto_id', sql.Int, presupuesto_id)
+    .input('usuario_id', sql.Int, usuario_id)
+    .input('categoria_id', sql.Int, categoria_id)
+    .input('anio', sql.Int, anio)
+    .input('mes', sql.Int, mes)
+    .input('monto_presupuestado', sql.Decimal(10, 2), monto_presupuestado)
+    .query(`
+      UPDATE finance.PresupuestoMensual
+      SET
+        monto_presupuestado = @monto_presupuestado,
+        activo = 1
+      OUTPUT
+        INSERTED.presupuesto_id,
+        INSERTED.usuario_id,
+        INSERTED.categoria_id,
+        INSERTED.anio,
+        INSERTED.mes,
+        INSERTED.monto_presupuestado,
+        INSERTED.activo,
+        INSERTED.fecha_registro
+      WHERE presupuesto_id = @presupuesto_id
+        AND usuario_id = @usuario_id
+        AND categoria_id = @categoria_id
+        AND anio = @anio
+        AND mes = @mes
+        AND activo = 0
+    `);
+
+  return result.recordset[0];
+};
+
 module.exports = {
   listarPresupuestosPorUsuario,
   obtenerPresupuestoPorId,
@@ -250,5 +292,6 @@ module.exports = {
   buscarPresupuestoExistente,
   crearPresupuesto,
   actualizarPresupuesto,
-  desactivarPresupuesto
+  desactivarPresupuesto,
+  reactivarPresupuesto
 };

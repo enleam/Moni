@@ -4,6 +4,7 @@ import Registro from './pages/Registro';
 import Dashboard from './pages/Dashboard';
 import Categorias from './pages/Categorias';
 import Movimientos from './pages/Movimientos';
+import Presupuestos from './pages/Presupuestos';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 
@@ -39,6 +40,15 @@ function App() {
         element={
           <PrivateRoute>
             <Movimientos />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/presupuestos"
+        element={
+          <PrivateRoute>
+            <Presupuestos />
           </PrivateRoute>
         }
       />

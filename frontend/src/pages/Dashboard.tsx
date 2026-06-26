@@ -136,7 +136,7 @@ function Dashboard() {
           <Link to="/dashboard">Dashboard</Link>
           <Link to="/categorias">Categorías</Link>
           <Link to="/movimientos">Movimientos</Link>
-          <Link to="/dashboard">Presupuestos</Link>
+          <Link to="/presupuestos">Presupuestos</Link>
           <Link to="/dashboard">Reportes</Link>
         </nav>
 
