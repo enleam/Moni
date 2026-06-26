@@ -369,3 +369,79 @@ a {
     grid-template-columns: 1fr;
   }
 }
+
+.movimiento-layout {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 24px;
+}
+
+.movement-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.movement-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.movement-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.movement-main strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.movement-main small {
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.movement-main p {
+  margin: 8px 0 0;
+  color: #4b5563;
+  font-size: 14px;
+}
+
+.movement-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  min-width: 180px;
+}
+
+.amount-income {
+  color: #16a34a;
+}
+
+.amount-expense {
+  color: #dc2626;
+}
+
+@media (max-width: 1100px) {
+  .movimiento-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .movement-item {
+    flex-direction: column;
+  }
+
+  .movement-side {
+    align-items: flex-start;
+    min-width: auto;
+  }
+}
