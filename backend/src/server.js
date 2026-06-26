@@ -6,6 +6,7 @@ const authRoutes = require('./routes/auth.routes');
 const categoriaRoutes = require('./routes/categoria.routes');
 const movimientoRoutes = require('./routes/movimiento.routes');
 const dashboardRoutes = require('./routes/dashboard.routes');
+const presupuestoRoutes = require('./routes/presupuesto.routes');
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/categorias', categoriaRoutes);
 app.use('/api/movimientos', movimientoRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/presupuestos', presupuestoRoutes);
 
 const PORT = process.env.PORT || 3000;
 
