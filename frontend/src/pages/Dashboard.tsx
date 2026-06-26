@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   cerrarSesion,
   obtenerPerfil,
@@ -40,11 +40,11 @@ function Dashboard() {
         <h2>FinTrack</h2>
 
         <nav>
-          <a href="/dashboard">Dashboard</a>
-          <a href="/dashboard">Movimientos</a>
-          <a href="/dashboard">Categorías</a>
-          <a href="/dashboard">Presupuestos</a>
-          <a href="/dashboard">Reportes</a>
+          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/categorias">Categorías</Link>
+          <Link to="/dashboard">Movimientos</Link>
+          <Link to="/dashboard">Presupuestos</Link>
+          <Link to="/dashboard">Reportes</Link>
         </nav>
 
         <button onClick={handleCerrarSesion} className="logout-button">

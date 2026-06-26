@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import Registro from './pages/Registro';
 import Dashboard from './pages/Dashboard';
+import Categorias from './pages/Categorias';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 
@@ -19,6 +20,15 @@ function App() {
         element={
           <PrivateRoute>
             <Dashboard />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/categorias"
+        element={
+          <PrivateRoute>
+            <Categorias />
           </PrivateRoute>
         }
       />
