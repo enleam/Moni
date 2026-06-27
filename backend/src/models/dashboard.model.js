@@ -76,11 +76,13 @@ const obtenerGastosPorCategoria = async ({ usuario_id, anio, mes }) => {
   return result.recordset;
 };
 
-const obtenerIngresosVsGastos = async ({ usuario_id }) => {
+const obtenerIngresosVsGastos = async ({ usuario_id, anio, mes }) => {
   const pool = await poolPromise;
 
   const result = await pool.request()
     .input('usuario_id', sql.Int, usuario_id)
+    .input('anio', sql.Int, anio)
+    .input('mes', sql.Int, mes)
     .query(`
       SELECT
         CONCAT(YEAR(fecha), '-', RIGHT('0' + CAST(MONTH(fecha) AS VARCHAR(2)), 2)) AS periodo,
@@ -90,7 +92,8 @@ const obtenerIngresosVsGastos = async ({ usuario_id }) => {
       FROM finance.Movimiento
       WHERE usuario_id = @usuario_id
         AND activo = 1
-        AND fecha >= DATEADD(MONTH, -5, DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1))
+        AND YEAR(fecha) = @anio
+        AND MONTH(fecha) = @mes
       GROUP BY YEAR(fecha), MONTH(fecha)
       ORDER BY YEAR(fecha), MONTH(fecha)
     `);

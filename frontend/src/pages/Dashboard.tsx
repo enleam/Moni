@@ -71,7 +71,7 @@ function Dashboard() {
       ] = await Promise.all([
         obtenerResumenDashboard(anio, mes),
         obtenerGastosPorCategoria(anio, mes),
-        obtenerIngresosVsGastos(),
+        obtenerIngresosVsGastos(anio, mes),
         obtenerEvolucionGastos(anio, mes)
       ]);
 

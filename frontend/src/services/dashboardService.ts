@@ -49,8 +49,14 @@ export const obtenerGastosPorCategoria = async (
   return response.data.gastos;
 };
 
-export const obtenerIngresosVsGastos = async (): Promise<IngresoVsGasto[]> => {
-  const response = await apiClient.get('/dashboard/ingresos-vs-gastos');
+export const obtenerIngresosVsGastos = async (
+  anio?: number,
+  mes?: number
+): Promise<IngresoVsGasto[]> => {
+  const response = await apiClient.get('/dashboard/ingresos-vs-gastos', {
+    params: { anio, mes }
+  });
+
   return response.data.datos;
 };
 

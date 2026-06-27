@@ -96,13 +96,23 @@ const listarGastosPorCategoria = async (req, res) => {
 const listarIngresosVsGastos = async (req, res) => {
   try {
     const usuario_id = req.usuario.usuario_id;
+    const { anio, mes } = obtenerPeriodo(req);
+
+    if (!validarPeriodo(anio, mes)) {
+      return res.status(400).json({
+        mensaje: 'Periodo inválido.'
+      });
+    }
 
     const datos = await obtenerIngresosVsGastos({
-      usuario_id
+      usuario_id,
+      anio,
+      mes
     });
 
     return res.status(200).json({
       mensaje: 'Ingresos vs gastos obtenidos correctamente.',
+      periodo: { anio, mes },
       datos
     });
 
