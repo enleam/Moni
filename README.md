@@ -262,8 +262,8 @@ Antes de ejecutar el proyecto, se necesita tener instalado:
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/TU_USUARIO/TU_REPOSITORIO.git
-cd TU_REPOSITORIO
+git clone https://github.com/enleam/Moni.git
+cd Moni
 ```
 
 ---
@@ -479,35 +479,35 @@ En producción, este flujo puede adaptarse para enviar el enlace por correo elec
 
 ### Login
 
-![Login](docs/screenshots/login.png)
+![Login](./docs/screenshots/login.png)
 
 ### Registro de usuario
 
-![Registro](docs/screenshots/registro.png)
+![Registro](./docs/screenshots/registro.png)
 
 ### Recuperación de contraseña
 
-![Recuperación de contraseña](docs/screenshots/recuperacion-password.png)
+![Recuperación de contraseña](./docs/screenshots/recuperacion-password.png)
 
 ### Dashboard financiero
 
-![Dashboard](docs/screenshots/dashboard.png)
+![Dashboard](./docs/screenshots/dashboard.png)
 
 ### Gestión de categorías
 
-![Categorías](docs/screenshots/categorias.png)
+![Categorías](./docs/screenshots/categorias.png)
 
 ### Gestión de movimientos
 
-![Movimientos](docs/screenshots/movimientos.png)
+![Movimientos](./docs/screenshots/movimientos.png)
 
 ### Presupuestos mensuales
 
-![Presupuestos](docs/screenshots/presupuestos.png)
+![Presupuestos](./docs/screenshots/presupuestos.png)
 
 ### Reportes mensuales
 
-![Reportes](docs/screenshots/reportes.png)
+![Reportes](./docs/screenshots/reportes.png)
 
 ---
 
@@ -554,15 +554,6 @@ npm install
 npm run dev
 ```
 
-### Git
-
-```bash
-git status
-git add .
-git commit -m "mensaje del commit"
-git push
-```
-
 ---
 
 ## Estado del proyecto
@@ -602,4 +593,13 @@ Funcionalidades implementadas:
 
 ## Autor
 
-Proyecto desarrollado por **Flavio Huapaya** como aplicación full-stack para la gestión financiera personal.
+**Flavio Enrique Huapaya Bohorquez**
+
+Estudiante de Ingeniería de Sistemas  
+Universidad Nacional Mayor de San Marcos
+
+---
+
+## Licencia
+
+Este proyecto se desarrolla con fines educativos y de portafolio.
