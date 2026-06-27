@@ -479,35 +479,35 @@ En producción, este flujo puede adaptarse para enviar el enlace por correo elec
 
 ### Login
 
-![Login](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/login.png)
+![Login](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/login.PNG)
 
 ### Registro de usuario
 
-![Registro](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/registro.png)
+![Registro](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/registro.PNG)
 
 ### Recuperación de contraseña
 
-![Recuperación de contraseña](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/recuperacion-password.png)
+![Recuperación de contraseña](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/recuperacion-password.PNG)
 
 ### Dashboard financiero
 
-![Dashboard](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/dashboard.png)
+![Dashboard](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/dashboard.PNG)
 
 ### Gestión de categorías
 
-![Categorías](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/categorias.png)
+![Categorías](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/categorias.PNG)
 
 ### Gestión de movimientos
 
-![Movimientos](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/movimientos.png)
+![Movimientos](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/movimientos.PNG)
 
 ### Presupuestos mensuales
 
-![Presupuestos](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/presupuestos.png)
+![Presupuestos](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/presupuestos.PNG)
 
 ### Reportes mensuales
 
-![Reportes](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/reportes.png)
+![Reportes](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/reportes.PNG)
 
 ---
 
