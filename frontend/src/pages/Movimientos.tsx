@@ -28,6 +28,8 @@ import type {
   Categoria
 } from '../services/categoriaService';
 
+import ConfirmDialog from '../components/ConfirmDialog';
+
 function Movimientos() {
   const navigate = useNavigate();
   const usuario = obtenerUsuarioLocal();
@@ -48,6 +50,11 @@ function Movimientos() {
   const [mensaje, setMensaje] = useState('');
   const [error, setError] = useState('');
   const [cargando, setCargando] = useState(false);
+
+  const [movimientoAEliminar, setMovimientoAEliminar] =
+    useState<Movimiento | null>(null);
+
+  const [eliminando, setEliminando] = useState(false);
 
   const categoriasFiltradas = useMemo(() => {
     return categorias.filter((categoria) => categoria.tipo === tipo);
@@ -156,28 +163,35 @@ function Movimientos() {
     setError('');
   };
 
-  const handleEliminar = async (movimiento: Movimiento) => {
-    const confirmar = window.confirm(
-      `¿Seguro que deseas eliminar este movimiento de S/ ${Number(movimiento.monto).toFixed(2)}?`
-    );
+  const abrirDialogEliminar = (movimiento: Movimiento) => {
+    setMovimientoAEliminar(movimiento);
+    setMensaje('');
+    setError('');
+  };
 
-    if (!confirmar) {
+  const confirmarEliminarMovimiento = async () => {
+    if (!movimientoAEliminar) {
       return;
     }
 
     try {
+      setEliminando(true);
       setMensaje('');
       setError('');
 
-      await eliminarMovimiento(movimiento.movimiento_id);
+      await eliminarMovimiento(movimientoAEliminar.movimiento_id);
 
       setMensaje('Movimiento eliminado correctamente.');
+      setMovimientoAEliminar(null);
+
       await cargarDatos();
 
     } catch (error: any) {
       setError(
         error.response?.data?.mensaje || 'Error al eliminar movimiento.'
       );
+    } finally {
+      setEliminando(false);
     }
   };
 
@@ -413,7 +427,7 @@ function Movimientos() {
 
                         <button
                           className="danger-button"
-                          onClick={() => handleEliminar(movimiento)}
+                          onClick={() => abrirDialogEliminar(movimiento)}
                         >
                           Eliminar
                         </button>
@@ -426,6 +440,22 @@ function Movimientos() {
           </div>
         </section>
       </main>
+
+      <ConfirmDialog
+          abierto={!!movimientoAEliminar}
+          titulo="Eliminar movimiento"
+          descripcion={
+            movimientoAEliminar
+              ? `¿Seguro que deseas eliminar este movimiento de ${movimientoAEliminar.tipo === 'INGRESO' ? 'ingreso' : 'gasto'} por S/ ${Number(movimientoAEliminar.monto).toFixed(2)}? Esta acción solo lo desactivará.`
+              : ''
+          }
+          textoConfirmar="Eliminar"
+          textoCancelar="Cancelar"
+          tipo="danger"
+          cargando={eliminando}
+          onConfirmar={confirmarEliminarMovimiento}
+          onCerrar={() => setMovimientoAEliminar(null)}
+        />
     </div>
   );
 }
