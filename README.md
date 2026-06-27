@@ -479,35 +479,35 @@ En producción, este flujo puede adaptarse para enviar el enlace por correo elec
 
 ### Login
 
-![Login](./docs/screenshots/login.png)
+![Login](docs/screenshots/login.png)
 
 ### Registro de usuario
 
-![Registro](./docs/screenshots/registro.png)
+![Registro](docs/screenshots/registro.png)
 
 ### Recuperación de contraseña
 
-![Recuperación de contraseña](./docs/screenshots/recuperacion-password.png)
+![Recuperación de contraseña](docs/screenshots/recuperacion-password.png)
 
 ### Dashboard financiero
 
-![Dashboard](./docs/screenshots/dashboard.png)
+![Dashboard](docs/screenshots/dashboard.png)
 
 ### Gestión de categorías
 
-![Categorías](./docs/screenshots/categorias.png)
+![Categorías](docs/screenshots/categorias.png)
 
 ### Gestión de movimientos
 
-![Movimientos](./docs/screenshots/movimientos.png)
+![Movimientos](docs/screenshots/movimientos.png)
 
 ### Presupuestos mensuales
 
-![Presupuestos](./docs/screenshots/presupuestos.png)
+![Presupuestos](docs/screenshots/presupuestos.png)
 
 ### Reportes mensuales
 
-![Reportes](./docs/screenshots/reportes.png)
+![Reportes](docs/screenshots/reportes.png)
 
 ---
 
