@@ -20,7 +20,7 @@ function Sidebar() {
             isActive ? 'sidebar-link active' : 'sidebar-link'
           }
         >
-          Dashboard
+          Resumen
         </NavLink>
 
         <NavLink

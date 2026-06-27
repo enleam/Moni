@@ -131,7 +131,7 @@ function Dashboard() {
       <main className="dashboard-content">
         <header className="dashboard-header dashboard-header-row">
           <div>
-            <h1>Dashboard financiero</h1>
+            <h1>Resumen financiero</h1>
             <p>Bienvenido, {usuario?.nombre || 'usuario'}.</p>
           </div>
 
