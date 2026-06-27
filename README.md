@@ -489,7 +489,7 @@ En producción, este flujo puede adaptarse para enviar el enlace por correo elec
 
 ![Recuperación de contraseña](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/recuperacion-password.PNG)
 
-### Dashboard financiero
+### Resumen financiero
 
 ![Dashboard](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/dashboard.PNG)
 
