@@ -1,8 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { FormEvent } from 'react';
 
-import { Link, useNavigate } from 'react-router-dom';
-
 import {
   actualizarMovimiento,
   crearMovimiento,
@@ -15,7 +13,6 @@ import {
 } from '../services/categoriaService';
 
 import {
-  cerrarSesion,
   obtenerUsuarioLocal
 } from '../services/authService';
 
@@ -29,9 +26,9 @@ import type {
 } from '../services/categoriaService';
 
 import ConfirmDialog from '../components/ConfirmDialog';
+import Sidebar from '../components/Sidebar';
 
 function Movimientos() {
-  const navigate = useNavigate();
   const usuario = obtenerUsuarioLocal();
 
   const [movimientos, setMovimientos] = useState<Movimiento[]>([]);
@@ -195,11 +192,6 @@ function Movimientos() {
     }
   };
 
-  const handleCerrarSesion = () => {
-    cerrarSesion();
-    navigate('/login');
-  };
-
   useEffect(() => {
     cargarDatos();
   }, []);
@@ -216,21 +208,7 @@ function Movimientos() {
 
   return (
     <div className="dashboard-page">
-      <aside className="sidebar">
-        <h2>FinTrack</h2>
-
-        <nav>
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/categorias">Categorías</Link>
-          <Link to="/movimientos">Movimientos</Link>
-          <Link to="/presupuestos">Presupuestos</Link>
-          <Link to="/reportes">Reportes</Link>
-        </nav>
-
-        <button onClick={handleCerrarSesion} className="logout-button">
-          Cerrar sesión
-        </button>
-      </aside>
+      <Sidebar />
 
       <main className="dashboard-content">
         <header className="dashboard-header">

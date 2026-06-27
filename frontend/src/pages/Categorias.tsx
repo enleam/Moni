@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 
 import {
   actualizarCategoria,
@@ -8,7 +7,7 @@ import {
   listarCategorias
 } from '../services/categoriaService';
 
-import { cerrarSesion, obtenerUsuarioLocal } from '../services/authService';
+import { obtenerUsuarioLocal } from '../services/authService';
 
 import type {
   Categoria,
@@ -16,9 +15,9 @@ import type {
 } from '../services/categoriaService';
 
 import ConfirmDialog from '../components/ConfirmDialog';
+import Sidebar from '../components/Sidebar';
 
 function Categorias() {
-  const navigate = useNavigate();
   const usuario = obtenerUsuarioLocal();
 
   const [categorias, setCategorias] = useState<Categoria[]>([]);
@@ -139,11 +138,6 @@ function Categorias() {
     }
   };
 
-  const handleCerrarSesion = () => {
-    cerrarSesion();
-    navigate('/login');
-  };
-
   useEffect(() => {
     cargarCategorias();
   }, []);
@@ -158,21 +152,7 @@ function Categorias() {
 
   return (
     <div className="dashboard-page">
-      <aside className="sidebar">
-        <h2>FinTrack</h2>
-
-        <nav>
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/categorias">Categorías</Link>
-          <Link to="/movimientos">Movimientos</Link>
-          <Link to="/presupuestos">Presupuestos</Link>
-          <Link to="/reportes">Reportes</Link>
-        </nav>
-
-        <button onClick={handleCerrarSesion} className="logout-button">
-          Cerrar sesión
-        </button>
-      </aside>
+      <Sidebar />
 
       <main className="dashboard-content">
         <header className="dashboard-header">

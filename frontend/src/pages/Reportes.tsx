@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 
 import {
   obtenerReporteMensual
 } from '../services/reporteService';
 
 import {
-  cerrarSesion,
   obtenerUsuarioLocal
 } from '../services/authService';
 
@@ -15,8 +13,9 @@ import type {
   TipoReporte
 } from '../services/reporteService';
 
+import Sidebar from '../components/Sidebar';
+
 function Reportes() {
-  const navigate = useNavigate();
   const usuario = obtenerUsuarioLocal();
   const fechaActual = new Date();
 
@@ -111,15 +110,10 @@ function Reportes() {
     const enlace = document.createElement('a');
 
     enlace.href = url;
-    enlace.download = `reporte_fintrack_${anio}_${mes}_${tipo}.csv`;
+    enlace.download = `reporte_moni_${anio}_${mes}_${tipo}.csv`;
     enlace.click();
 
     URL.revokeObjectURL(url);
-  };
-
-  const handleCerrarSesion = () => {
-    cerrarSesion();
-    navigate('/login');
   };
 
   useEffect(() => {
@@ -130,21 +124,7 @@ function Reportes() {
 
   return (
     <div className="dashboard-page">
-      <aside className="sidebar">
-        <h2>FinTrack</h2>
-
-        <nav>
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/categorias">Categorías</Link>
-          <Link to="/movimientos">Movimientos</Link>
-          <Link to="/presupuestos">Presupuestos</Link>
-          <Link to="/reportes">Reportes</Link>
-        </nav>
-
-        <button onClick={handleCerrarSesion} className="logout-button">
-          Cerrar sesión
-        </button>
-      </aside>
+      <Sidebar />
 
       <main className="dashboard-content">
         <header className="dashboard-header dashboard-header-row">

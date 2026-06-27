@@ -20,7 +20,7 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
   res.json({
-    mensaje: 'API FinTrack Personal funcionando correctamente.'
+    mensaje: 'API Moni funcionando correctamente.'
   });
 });
 

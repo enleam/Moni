@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import {
   Bar,
@@ -37,6 +37,8 @@ import type {
   GastoCategoria,
   IngresoVsGasto
 } from '../services/dashboardService';
+
+import Sidebar from '../components/Sidebar';
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -89,11 +91,6 @@ function Dashboard() {
     }
   };
 
-  const handleCerrarSesion = () => {
-    cerrarSesion();
-    navigate('/login');
-  };
-
   useEffect(() => {
     const cargarPerfil = async () => {
       try {
@@ -129,21 +126,7 @@ function Dashboard() {
 
   return (
     <div className="dashboard-page">
-      <aside className="sidebar">
-        <h2>FinTrack</h2>
-
-        <nav>
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/categorias">Categorías</Link>
-          <Link to="/movimientos">Movimientos</Link>
-          <Link to="/presupuestos">Presupuestos</Link>
-          <Link to="/reportes">Reportes</Link>
-        </nav>
-
-        <button onClick={handleCerrarSesion} className="logout-button">
-          Cerrar sesión
-        </button>
-      </aside>
+      <Sidebar />
 
       <main className="dashboard-content">
         <header className="dashboard-header dashboard-header-row">

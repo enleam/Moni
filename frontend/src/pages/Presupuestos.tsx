@@ -1,8 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { FormEvent } from 'react';
 
-import { Link, useNavigate } from 'react-router-dom';
-
 import {
   actualizarPresupuesto,
   crearPresupuesto,
@@ -15,7 +13,6 @@ import {
 } from '../services/categoriaService';
 
 import {
-  cerrarSesion,
   obtenerUsuarioLocal
 } from '../services/authService';
 
@@ -23,9 +20,9 @@ import type { Categoria } from '../services/categoriaService';
 import type { Presupuesto } from '../services/presupuestoService';
 
 import ConfirmDialog from '../components/ConfirmDialog';
+import Sidebar from '../components/Sidebar';
 
 function Presupuestos() {
-  const navigate = useNavigate();
   const usuario = obtenerUsuarioLocal();
   const fechaActual = new Date();
 
@@ -182,11 +179,6 @@ function Presupuestos() {
     }
   };
 
-  const handleCerrarSesion = () => {
-    cerrarSesion();
-    navigate('/login');
-  };
-
   useEffect(() => {
     cargarDatos();
   }, [anio, mes]);
@@ -205,21 +197,7 @@ function Presupuestos() {
 
   return (
     <div className="dashboard-page">
-      <aside className="sidebar">
-        <h2>FinTrack</h2>
-
-        <nav>
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/categorias">Categorías</Link>
-          <Link to="/movimientos">Movimientos</Link>
-          <Link to="/presupuestos">Presupuestos</Link>
-          <Link to="/reportes">Reportes</Link>
-        </nav>
-
-        <button onClick={handleCerrarSesion} className="logout-button">
-          Cerrar sesión
-        </button>
-      </aside>
+      <Sidebar />
 
       <main className="dashboard-content">
         <header className="dashboard-header dashboard-header-row">

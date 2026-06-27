@@ -41,7 +41,7 @@ function Registro() {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <h1>FinTrack Personal</h1>
+        <h1>Moni</h1>
         <h2>Crear cuenta</h2>
 
         <form onSubmit={handleSubmit}>

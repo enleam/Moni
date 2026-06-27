@@ -1,6 +1,6 @@
-# FinTrack Personal
+# Moni
 
-Sistema web full-stack para la gestión de gastos personales, ingresos, presupuestos y reportes financieros.
+Sistema web full-stack para la gestión de ingresos, gastos, presupuestos y reportes financieros personales.
 
 ## Tecnologías
 
