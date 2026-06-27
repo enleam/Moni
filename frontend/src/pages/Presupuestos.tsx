@@ -22,6 +22,8 @@ import {
 import type { Categoria } from '../services/categoriaService';
 import type { Presupuesto } from '../services/presupuestoService';
 
+import ConfirmDialog from '../components/ConfirmDialog';
+
 function Presupuestos() {
   const navigate = useNavigate();
   const usuario = obtenerUsuarioLocal();
@@ -35,8 +37,10 @@ function Presupuestos() {
   const [mes, setMes] = useState(fechaActual.getMonth() + 1);
   const [montoPresupuestado, setMontoPresupuestado] = useState('');
 
-  const [presupuestoEditando, setPresupuestoEditando] =
-    useState<Presupuesto | null>(null);
+  const [presupuestoEditando, setPresupuestoEditando] = useState<Presupuesto | null>(null);
+
+  const [presupuestoAEliminar, setPresupuestoAEliminar] = useState<Presupuesto | null>(null);
+  const [eliminando, setEliminando] = useState(false);
 
   const [mensaje, setMensaje] = useState('');
   const [error, setError] = useState('');
@@ -146,28 +150,35 @@ function Presupuestos() {
     setError('');
   };
 
-  const handleEliminar = async (presupuesto: Presupuesto) => {
-    const confirmar = window.confirm(
-      `¿Seguro que deseas eliminar el presupuesto de ${presupuesto.categoria_nombre}?`
-    );
+  const abrirDialogEliminar = (presupuesto: Presupuesto) => {
+    setPresupuestoAEliminar(presupuesto);
+    setMensaje('');
+    setError('');
+  };
 
-    if (!confirmar) {
+  const confirmarEliminarPresupuesto = async () => {
+    if (!presupuestoAEliminar) {
       return;
     }
 
     try {
+      setEliminando(true);
       setMensaje('');
       setError('');
 
-      await eliminarPresupuesto(presupuesto.presupuesto_id);
+      await eliminarPresupuesto(presupuestoAEliminar.presupuesto_id);
 
       setMensaje('Presupuesto eliminado correctamente.');
+      setPresupuestoAEliminar(null);
+
       await cargarDatos();
 
     } catch (error: any) {
       setError(
         error.response?.data?.mensaje || 'Error al eliminar presupuesto.'
       );
+    } finally {
+      setEliminando(false);
     }
   };
 
@@ -405,7 +416,7 @@ function Presupuestos() {
 
                         <button
                           className="danger-button"
-                          onClick={() => handleEliminar(presupuesto)}
+                          onClick={() => abrirDialogEliminar(presupuesto)}
                         >
                           Eliminar
                         </button>
@@ -418,6 +429,22 @@ function Presupuestos() {
           </div>
         </section>
       </main>
+
+      <ConfirmDialog
+        abierto={!!presupuestoAEliminar}
+        titulo="Eliminar presupuesto"
+        descripcion={
+          presupuestoAEliminar
+            ? `¿Seguro que deseas eliminar el presupuesto de "${presupuestoAEliminar.categoria_nombre}" por S/ ${Number(presupuestoAEliminar.monto_presupuestado).toFixed(2)}? Esta acción solo lo desactivará.`
+            : ''
+        }
+        textoConfirmar="Eliminar"
+        textoCancelar="Cancelar"
+        tipo="danger"
+        cargando={eliminando}
+        onConfirmar={confirmarEliminarPresupuesto}
+        onCerrar={() => setPresupuestoAEliminar(null)}
+      />
     </div>
   );
 }
