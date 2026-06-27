@@ -77,6 +77,14 @@ a {
   font-weight: 700;
 }
 
+.auth-subtitle {
+  margin: 12px 0 22px;
+  text-align: center;
+  color: #4b5563;
+  font-size: 16px;
+  font-weight: 500;
+}
+
 /* =========================
    LAYOUT GENERAL
 ========================= */
@@ -870,4 +878,34 @@ a {
   .confirm-button {
     width: 100%;
   }
+}
+
+/* =========================
+   FORGOT/RESET PASSWORD
+========================= */
+
+.dev-reset-box {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1e3a8a;
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  word-break: break-all;
+}
+
+.dev-reset-box strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.dev-reset-box p {
+  margin: 0 0 8px;
+}
+
+.dev-reset-box a {
+  color: #2563eb;
+  font-weight: 700;
+  text-decoration: underline;
 }

@@ -42,6 +42,7 @@ function Registro() {
     <div className="auth-page">
       <div className="auth-card">
         <h1>Moni</h1>
+        <p className="auth-subtitle">Gestión de gastos personales</p>
         <h2>Crear cuenta</h2>
 
         <form onSubmit={handleSubmit}>

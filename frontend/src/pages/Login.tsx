@@ -40,6 +40,7 @@ function Login() {
     <div className="auth-page">
       <div className="auth-card">
         <h1>Moni</h1>
+        <p className="auth-subtitle">Gestión de gastos personales</p>
         <h2>Iniciar sesión</h2>
 
         <form onSubmit={handleSubmit}>
@@ -71,6 +72,10 @@ function Login() {
             {cargando ? 'Ingresando...' : 'Ingresar'}
           </button>
         </form>
+
+        <p className="auth-link">
+          <Link to="/forgot-password">¿Olvidaste tu contraseña?</Link>
+        </p>
 
         <p className="auth-link">
           ¿No tienes cuenta? <Link to="/registro">Regístrate</Link>

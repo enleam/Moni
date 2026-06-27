@@ -6,6 +6,8 @@ import Categorias from './pages/Categorias';
 import Movimientos from './pages/Movimientos';
 import Presupuestos from './pages/Presupuestos';
 import Reportes from './pages/Reportes';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 
@@ -17,6 +19,10 @@ function App() {
       <Route path="/login" element={<Login />} />
 
       <Route path="/registro" element={<Registro />} />
+
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+
+      <Route path="/reset-password/:token" element={<ResetPassword />} />
 
       <Route
         path="/dashboard"

@@ -63,3 +63,34 @@ export const cerrarSesion = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('usuario');
 };
+
+export interface ForgotPasswordResponse {
+  mensaje: string;
+  resetLink?: string;
+}
+
+export const solicitarRecuperacionPassword = async (
+  correo: string
+): Promise<ForgotPasswordResponse> => {
+  const response = await apiClient.post<ForgotPasswordResponse>(
+    '/auth/forgot-password',
+    { correo }
+  );
+
+  return response.data;
+};
+
+export const restablecerPassword = async ({
+  token,
+  nuevaPassword
+}: {
+  token: string;
+  nuevaPassword: string;
+}): Promise<{ mensaje: string }> => {
+  const response = await apiClient.post('/auth/reset-password', {
+    token,
+    nuevaPassword
+  });
+
+  return response.data;
+};
