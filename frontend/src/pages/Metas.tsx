@@ -399,31 +399,33 @@ function Metas() {
                       <span>{formatearFecha(meta.fecha_objetivo)}</span>
                     </div>
 
-                    <div className="action-buttons">
-                      <button
-                        type="button"
-                        onClick={() => editarMeta(meta)}
-                      >
-                        Editar
-                      </button>
+                    <div className="meta-actions">
+                        <button
+                            type="button"
+                            className="meta-action-button edit"
+                            onClick={() => editarMeta(meta)}
+                        >
+                            Editar
+                        </button>
 
-                      <button
-                        type="button"
-                        onClick={() => abrirAvance(meta)}
-                        disabled={meta.estado === 'COMPLETADA'}
-                      >
-                        Avance
-                      </button>
+                        <button
+                            type="button"
+                            className="meta-action-button progress"
+                            onClick={() => abrirAvance(meta)}
+                            disabled={meta.estado === 'COMPLETADA'}
+                        >
+                            Avance
+                        </button>
 
-                      <button
-                        type="button"
-                        className="danger-button"
-                        onClick={() => setMetaAEliminar(meta)}
-                      >
-                        Eliminar
-                      </button>
+                        <button
+                            type="button"
+                            className="meta-action-button delete"
+                            onClick={() => setMetaAEliminar(meta)}
+                        >
+                            Eliminar
+                        </button>
+                        </div>
                     </div>
-                  </div>
                 );
               })}
             </div>

@@ -1035,3 +1035,67 @@ a {
     gap: 8px;
   }
 }
+
+.meta-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.meta-action-button {
+  border: none;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.meta-action-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.meta-action-button.edit {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.meta-action-button.edit:hover:not(:disabled) {
+  background: #e5e7eb;
+  box-shadow: 0 6px 14px rgba(107, 114, 128, 0.18);
+}
+
+.meta-action-button.progress {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.meta-action-button.progress:hover:not(:disabled) {
+  background: #1d4ed8;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.28);
+}
+
+.meta-action-button.delete {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.meta-action-button.delete:hover:not(:disabled) {
+  background: #fecaca;
+  box-shadow: 0 8px 18px rgba(185, 28, 28, 0.18);
+}
+
+.meta-action-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.meta-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
