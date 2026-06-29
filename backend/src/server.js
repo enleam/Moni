@@ -9,6 +9,7 @@ const dashboardRoutes = require('./routes/dashboard.routes');
 const presupuestoRoutes = require('./routes/presupuesto.routes');
 const reporteRoutes = require('./routes/reporte.routes');
 const perfilRoutes = require('./routes/perfil.routes');
+const metaRoutes = require('./routes/meta.routes');
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/presupuestos', presupuestoRoutes);
 app.use('/api/reportes', reporteRoutes);
 app.use('/api/perfil', perfilRoutes);
+app.use('/api/metas', metaRoutes);
 
 const PORT = process.env.PORT || 3000;
 

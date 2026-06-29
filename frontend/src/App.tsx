@@ -9,6 +9,7 @@ import Reportes from './pages/Reportes';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import Perfil from './pages/Perfil';
+import Metas from './pages/Metas';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 
@@ -57,6 +58,15 @@ function App() {
         element={
           <PrivateRoute>
             <Presupuestos />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/metas"
+        element={
+          <PrivateRoute>
+            <Metas />
           </PrivateRoute>
         }
       />

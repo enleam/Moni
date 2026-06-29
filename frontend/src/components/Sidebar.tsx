@@ -51,6 +51,15 @@ function Sidebar() {
         </NavLink>
 
         <NavLink
+          to="/metas"
+          className={({ isActive }) =>
+            isActive ? 'sidebar-link active' : 'sidebar-link'
+          }
+        >
+          Metas
+        </NavLink>
+
+        <NavLink
           to="/reportes"
           className={({ isActive }) =>
             isActive ? 'sidebar-link active' : 'sidebar-link'
