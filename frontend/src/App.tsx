@@ -8,6 +8,7 @@ import Presupuestos from './pages/Presupuestos';
 import Reportes from './pages/Reportes';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import Perfil from './pages/Perfil';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 
@@ -65,6 +66,15 @@ function App() {
         element={
           <PrivateRoute>
             <Reportes />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/perfil"
+        element={
+          <PrivateRoute>
+            <Perfil />
           </PrivateRoute>
         }
       />

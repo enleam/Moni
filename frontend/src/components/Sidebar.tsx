@@ -60,6 +60,15 @@ function Sidebar() {
         </NavLink>
       </nav>
 
+      <NavLink
+        to="/perfil"
+        className={({ isActive }) =>
+          isActive ? 'sidebar-link active' : 'sidebar-link'
+        }
+      >
+        Perfil
+      </NavLink>
+
       <button onClick={handleCerrarSesion} className="logout-button">
         Cerrar sesión
       </button>

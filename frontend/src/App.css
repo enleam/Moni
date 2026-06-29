@@ -909,3 +909,25 @@ a {
   font-weight: 700;
   text-decoration: underline;
 }
+
+/* =========================
+   PERFIL
+========================= */
+
+.perfil-layout {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.form-group input:disabled {
+  background: #f3f4f6;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1000px) {
+  .perfil-layout {
+    grid-template-columns: 1fr;
+  }
+}
