@@ -209,3 +209,83 @@ SELECT
     fecha_registro
 FROM auth.TokenRecuperacionPassword
 ORDER BY token_id DESC;
+
+IF NOT EXISTS (
+    SELECT * FROM INFORMATION_SCHEMA.TABLES
+    WHERE TABLE_SCHEMA = 'finance'
+      AND TABLE_NAME = 'MetaAhorro'
+)
+BEGIN
+    CREATE TABLE finance.MetaAhorro (
+        meta_id INT IDENTITY(1,1) PRIMARY KEY,
+        usuario_id INT NOT NULL,
+        nombre NVARCHAR(100) NOT NULL,
+        descripcion NVARCHAR(250) NULL,
+        monto_objetivo DECIMAL(10,2) NOT NULL,
+        monto_actual DECIMAL(10,2) NOT NULL DEFAULT 0,
+        fecha_objetivo DATE NULL,
+        estado NVARCHAR(20) NOT NULL DEFAULT 'ACTIVA',
+        activo BIT DEFAULT 1,
+        fecha_registro DATETIME2 DEFAULT SYSDATETIME(),
+
+        CONSTRAINT FK_MetaAhorro_Usuario
+        FOREIGN KEY (usuario_id) REFERENCES auth.Usuario(usuario_id),
+
+        CONSTRAINT CK_MetaAhorro_MontoObjetivo
+        CHECK (monto_objetivo > 0),
+
+        CONSTRAINT CK_MetaAhorro_MontoActual
+        CHECK (monto_actual >= 0),
+
+        CONSTRAINT CK_MetaAhorro_Estado
+        CHECK (estado IN ('ACTIVA', 'COMPLETADA'))
+    );
+END
+GO
+
+--Prueba
+SELECT
+    meta_id,
+    usuario_id,
+    nombre,
+    monto_objetivo,
+    monto_actual,
+    fecha_objetivo,
+    estado,
+    activo,
+    fecha_registro
+FROM finance.MetaAhorro
+ORDER BY meta_id DESC;
+
+IF COL_LENGTH('auth.Usuario', 'email_verificado') IS NULL
+BEGIN
+    ALTER TABLE auth.Usuario
+    ADD email_verificado BIT NOT NULL DEFAULT 0;
+END
+GO
+
+UPDATE auth.Usuario
+SET email_verificado = 1
+WHERE email_verificado = 0;
+GO
+
+IF NOT EXISTS (
+    SELECT * 
+    FROM INFORMATION_SCHEMA.TABLES
+    WHERE TABLE_SCHEMA = 'auth'
+      AND TABLE_NAME = 'TokenVerificacionEmail'
+)
+BEGIN
+    CREATE TABLE auth.TokenVerificacionEmail (
+        token_id INT IDENTITY(1,1) PRIMARY KEY,
+        usuario_id INT NOT NULL,
+        token_hash NVARCHAR(255) NOT NULL,
+        fecha_expiracion DATETIME2 NOT NULL,
+        usado BIT DEFAULT 0,
+        fecha_registro DATETIME2 DEFAULT SYSDATETIME(),
+
+        CONSTRAINT FK_TokenVerificacionEmail_Usuario
+        FOREIGN KEY (usuario_id) REFERENCES auth.Usuario(usuario_id)
+    );
+END
+GO

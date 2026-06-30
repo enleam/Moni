@@ -25,7 +25,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 12px;
   overflow: hidden;
   background:
     radial-gradient(circle at 12% 18%, rgba(37, 99, 235, 0.18), transparent 28%),
@@ -36,7 +36,7 @@ a {
 .auth-shell {
   width: 100%;
   max-width: 1160px;
-  height: min(660px, calc(100vh - 32px));
+  height: min(720px, calc(100vh - 24px));
   display: grid;
   grid-template-columns: 0.95fr 1.05fr;
   background: rgba(255, 255, 255, 0.92);
@@ -53,7 +53,7 @@ a {
     radial-gradient(circle at 28% 18%, rgba(255, 255, 255, 0.35), transparent 18%),
     linear-gradient(145deg, #1d4ed8 0%, #2563eb 48%, #60a5fa 100%);
   color: #ffffff;
-  padding: 38px 42px;
+  padding: 34px 42px;
   display: flex;
   align-items: center;
 }
@@ -84,12 +84,12 @@ a {
   position: relative;
   z-index: 1;
   max-width: 460px;
-  transform: translateY(-8px);
+  transform: translateY(-6px);
 }
 
 .auth-visual-badge {
   display: inline-flex;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   padding: 8px 14px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.18);
@@ -100,28 +100,28 @@ a {
 }
 
 .auth-visual h2 {
-  margin: 0 0 14px;
-  font-size: 42px;
+  margin: 0 0 12px;
+  font-size: 40px;
   line-height: 1.08;
   letter-spacing: -1px;
 }
 
 .auth-visual p {
-  margin: 0 0 24px;
+  margin: 0 0 20px;
   color: #dbeafe;
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.55;
 }
 
 .auth-graphics {
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .auth-graph-card {
   background: rgba(255, 255, 255, 0.16);
   border: 1px solid rgba(255, 255, 255, 0.20);
   border-radius: 20px;
-  padding: 18px;
+  padding: 16px;
   backdrop-filter: blur(10px);
   box-shadow: 0 16px 36px rgba(15, 23, 42, 0.10);
 }
@@ -131,17 +131,17 @@ a {
   color: #dbeafe;
   font-size: 14px;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .auth-graph-line {
   margin-bottom: 14px;
-  padding: 18px;
+  padding: 16px;
 }
 
 .line-chart {
   width: 100%;
-  height: 130px;
+  height: 112px;
 }
 
 .line-chart svg {
@@ -162,10 +162,10 @@ a {
 }
 
 .pie-chart {
-  width: 88px;
-  height: 88px;
+  width: 76px;
+  height: 76px;
   border-radius: 50%;
-  margin: 8px auto 2px;
+  margin: 6px auto 0;
   background: conic-gradient(
     #ffffff 0deg 120deg,
     rgba(255, 255, 255, 0.75) 120deg 220deg,
@@ -174,12 +174,12 @@ a {
 }
 
 .bar-chart {
-  height: 96px;
+  height: 82px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   gap: 12px;
-  padding-top: 10px;
+  padding-top: 8px;
 }
 
 .bar {
@@ -190,16 +190,16 @@ a {
 }
 
 .bar-1 {
-  height: 42px;
+  height: 36px;
   opacity: 0.75;
 }
 
 .bar-2 {
-  height: 74px;
+  height: 64px;
 }
 
 .bar-3 {
-  height: 56px;
+  height: 50px;
   opacity: 0.85;
 }
 
@@ -207,7 +207,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 34px 38px;
+  padding: 30px 38px;
   background:
     radial-gradient(circle at top right, rgba(37, 99, 235, 0.07), transparent 30%),
     #ffffff;
@@ -232,7 +232,7 @@ a {
 }
 
 .auth-subtitle {
-  margin: 8px 0 20px;
+  margin: 8px 0 18px;
   text-align: center;
   color: #4b5563;
   font-size: 16px;
@@ -240,7 +240,7 @@ a {
 }
 
 .auth-card h2 {
-  margin: 0 0 22px;
+  margin: 0 0 20px;
   font-size: 24px;
   text-align: center;
   color: #0f172a;
@@ -253,12 +253,12 @@ a {
 }
 
 .auth-card .form-group {
-  margin-bottom: 14px;
+  margin-bottom: 13px;
 }
 
 .auth-card .form-group label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 7px;
   color: #111827;
   font-size: 15px;
   font-weight: 700;
@@ -270,7 +270,7 @@ a {
   height: auto;
   border: 1px solid #d1d5db;
   border-radius: 13px;
-  padding: 14px 15px;
+  padding: 13px 15px;
   color: #111827;
   background: #ffffff;
   font-size: 16px;
@@ -292,7 +292,7 @@ a {
   width: 100%;
   border: none;
   border-radius: 14px;
-  padding: 14px 16px;
+  padding: 13px 16px;
   margin-top: 2px;
   background: #2563eb;
   color: #ffffff;
@@ -316,7 +316,7 @@ a {
 }
 
 .auth-link {
-  margin: 18px 0 0;
+  margin: 16px 0 0;
   text-align: center;
   color: #111827;
   font-size: 15px;
@@ -336,22 +336,22 @@ a {
   background: #dcfce7;
   border: 1px solid #bbf7d0;
   color: #166534;
-  padding: 12px 14px;
+  padding: 10px 14px;
   border-radius: 12px;
   font-size: 14px;
   font-weight: 600;
-  margin: 14px 0;
+  margin: 10px 0;
 }
 
 .auth-card .error-message {
   background: #fee2e2;
   border: 1px solid #fecaca;
   color: #b91c1c;
-  padding: 12px 14px;
+  padding: 10px 14px;
   border-radius: 12px;
   font-size: 14px;
   font-weight: 600;
-  margin: 14px 0;
+  margin: 10px 0;
 }
 
 .auth-card .empty-text {
@@ -366,9 +366,9 @@ a {
   background: #eff6ff;
   border: 1px solid #bfdbfe;
   color: #1e3a8a;
-  padding: 14px;
+  padding: 12px 14px;
   border-radius: 12px;
-  margin: 16px 0;
+  margin: 12px 0;
   font-size: 14px;
   word-break: break-all;
 }
@@ -388,6 +388,49 @@ a {
   text-decoration: underline;
 }
 
+/* Ajuste especial para Registro */
+.auth-card-register {
+  transform: translateY(-8px);
+}
+
+.auth-card-register .auth-subtitle {
+  margin-bottom: 12px;
+}
+
+.auth-card-register h2 {
+  margin-bottom: 14px;
+}
+
+.auth-card-register .form-group {
+  margin-bottom: 10px;
+}
+
+.auth-card-register .form-group label {
+  margin-bottom: 6px;
+}
+
+.auth-card-register .form-group input {
+  padding: 11px 15px;
+}
+
+.auth-card-register .success-message,
+.auth-card-register .error-message {
+  margin: 8px 0;
+  padding: 9px 14px;
+  font-size: 14px;
+}
+
+.auth-card-register button[type='submit'] {
+  margin-top: 0;
+  padding: 12px 16px;
+}
+
+.auth-card-register .auth-link {
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+
+/* Responsive */
 @media (max-width: 950px) {
   .auth-page {
     height: auto;
@@ -410,6 +453,14 @@ a {
   .auth-form-panel {
     padding: 42px 28px;
   }
+
+  .auth-card-register {
+    transform: none;
+  }
+
+  .auth-card-register .auth-link {
+    margin-bottom: 0;
+  }
 }
 
 @media (max-width: 640px) {
@@ -427,33 +478,6 @@ a {
 
   .auth-card h2 {
     font-size: 24px;
-  }
-}
-
-.auth-card-register {
-  transform: translateY(-22px);
-}
-
-.auth-card-register h2 {
-  margin-bottom: 20px;
-}
-
-.auth-card-register .form-group {
-  margin-bottom: 13px;
-}
-
-.auth-card-register .auth-link {
-  margin-top: 18px;
-  margin-bottom: 18px;
-}
-
-@media (max-width: 950px) {
-  .auth-card-register {
-    transform: none;
-  }
-
-  .auth-card-register .auth-link {
-    margin-bottom: 0;
   }
 }
 

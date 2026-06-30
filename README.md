@@ -1,28 +1,53 @@
 # Moni
 
-**Moni** es una aplicación web full-stack para la gestión de gastos personales. Permite registrar ingresos y gastos, organizarlos por categorías, controlar presupuestos mensuales, visualizar indicadores financieros en un dashboard y generar reportes exportables en CSV.
+**Moni** es una aplicación web full-stack para la gestión de finanzas personales. Permite registrar ingresos y gastos, organizar movimientos por categorías, controlar presupuestos mensuales, definir metas de ahorro, visualizar indicadores financieros y generar reportes exportables.
 
-El proyecto fue desarrollado con una arquitectura separada en frontend, backend y base de datos, usando React, Node.js, Express y SQL Server.
+El proyecto fue desarrollado como una aplicación separada en **frontend**, **backend** y **base de datos**, usando React, Node.js, Express y SQL Server.
+
+---
+
+## Descripción general
+
+Moni busca ayudar al usuario a tener mayor control sobre su dinero mediante una interfaz simple, moderna y organizada.
+
+El sistema permite:
+
+- Registrar ingresos y gastos.
+- Clasificar movimientos por categorías.
+- Visualizar un resumen financiero mensual.
+- Controlar presupuestos por categoría.
+- Crear metas de ahorro.
+- Consultar reportes mensuales.
+- Exportar información en CSV.
+- Gestionar el perfil del usuario.
+- Recuperar contraseña mediante correo.
+- Verificar el correo electrónico al registrarse.
 
 ---
 
 ## Características principales
 
-* Registro e inicio de sesión de usuarios.
-* Autenticación mediante JWT.
-* Protección de rutas privadas.
-* Recuperación de contraseña mediante token temporal.
-* Gestión de categorías de ingresos y gastos.
-* Registro de movimientos financieros.
-* Edición y eliminación lógica de registros.
-* Dashboard financiero con KPIs y gráficos.
-* Presupuestos mensuales por categoría de gasto.
-* Alertas visuales al superar el presupuesto.
-* Reportes mensuales filtrables.
-* Exportación de reportes en CSV.
-* Sidebar reutilizable con navegación activa.
-* Modal reutilizable para confirmaciones.
-* Interfaz web responsive.
+- Homepage pública de presentación.
+- Registro de usuarios.
+- Verificación de correo electrónico mediante Gmail.
+- Inicio de sesión con JWT.
+- Recuperación de contraseña mediante enlace enviado por correo.
+- Protección de rutas privadas.
+- Gestión de categorías de ingresos y gastos.
+- Registro de movimientos financieros.
+- Edición y eliminación lógica de registros.
+- Resumen financiero con KPIs y gráficos.
+- Presupuestos mensuales por categoría.
+- Alertas visuales al superar presupuestos.
+- Metas de ahorro con barra de progreso.
+- Reportes mensuales filtrables.
+- Exportación de reportes en CSV.
+- Perfil de usuario editable.
+- Cambio de contraseña desde el perfil.
+- Sidebar reutilizable con navegación activa.
+- Modal reutilizable para confirmaciones.
+- Diseño responsive.
+- Logo y favicon personalizado.
 
 ---
 
@@ -30,39 +55,69 @@ El proyecto fue desarrollado con una arquitectura separada en frontend, backend 
 
 ### Frontend
 
-* React
-* TypeScript
-* Vite
-* React Router DOM
-* Axios
-* Recharts
-* CSS
+- React
+- TypeScript
+- Vite
+- React Router DOM
+- Axios
+- Recharts
+- CSS
 
 ### Backend
 
-* Node.js
-* Express
-* SQL Server
-* JWT
-* BcryptJS
-* Dotenv
-* CORS
+- Node.js
+- Express
+- SQL Server
+- JWT
+- BcryptJS
+- Nodemailer
+- Dotenv
+- CORS
 
 ### Base de datos
 
-* SQL Server
-* Schemas separados:
+- SQL Server
+- SQL Server Management Studio
+- Azure SQL Database para despliegue
 
-  * `auth`
-  * `finance`
+Schemas utilizados:
+
+```text
+auth
+finance
+```
 
 ---
 
 ## Módulos del sistema
 
-### 1. Autenticación
+### 1. Homepage pública
 
-Permite registrar usuarios, iniciar sesión, mantener sesiones mediante JWT y recuperar contraseña mediante enlaces temporales.
+Pantalla inicial de presentación de la aplicación.
+
+Incluye:
+
+- Descripción de Moni.
+- Botones para iniciar sesión y registrarse.
+- Sección de características.
+- Sección de beneficios.
+- Sección de contacto.
+- Footer con información del proyecto.
+
+---
+
+### 2. Autenticación
+
+Permite registrar usuarios, iniciar sesión, proteger rutas privadas y mantener la sesión mediante JWT.
+
+Funcionalidades:
+
+- Registro de usuario.
+- Verificación de correo.
+- Inicio de sesión.
+- Recuperación de contraseña.
+- Restablecimiento de contraseña.
+- Cierre de sesión.
 
 Endpoints principales:
 
@@ -72,15 +127,38 @@ POST /api/auth/login
 GET  /api/auth/me
 POST /api/auth/forgot-password
 POST /api/auth/reset-password
+GET  /api/auth/verify-email/:token
 ```
 
 ---
 
-### 2. Categorías
+### 3. Perfil de usuario
 
-Permite crear, listar, editar y eliminar categorías financieras del usuario autenticado.
+Permite al usuario consultar y actualizar sus datos personales.
 
-Cada categoría puede ser de tipo:
+Funcionalidades:
+
+- Ver nombre.
+- Ver correo.
+- Ver fecha de registro.
+- Editar nombre.
+- Cambiar contraseña.
+
+Endpoints principales:
+
+```text
+GET /api/perfil
+PUT /api/perfil
+PUT /api/perfil/password
+```
+
+---
+
+### 4. Categorías
+
+Permite crear, listar, editar y eliminar categorías financieras.
+
+Tipos disponibles:
 
 ```text
 INGRESO
@@ -99,7 +177,7 @@ DELETE /api/categorias/:id
 
 ---
 
-### 3. Movimientos financieros
+### 5. Movimientos financieros
 
 Permite registrar ingresos y gastos con categoría, monto, fecha, descripción y método de pago.
 
@@ -124,20 +202,20 @@ DELETE /api/movimientos/:id
 
 ---
 
-### 4. Dashboard financiero
+### 6. Resumen financiero
 
 Muestra indicadores y gráficos financieros basados en los movimientos registrados.
 
 Incluye:
 
-* Ingresos del mes.
-* Gastos del mes.
-* Balance mensual.
-* Categoría con mayor gasto.
-* Gráfico de gastos por categoría.
-* Gráfico de ingresos vs gastos.
-* Evolución diaria de gastos.
-* Filtro por mes y año.
+- Ingresos del mes.
+- Gastos del mes.
+- Balance mensual.
+- Categoría con mayor gasto.
+- Gráfico de gastos por categoría.
+- Gráfico de ingresos vs gastos.
+- Evolución diaria de gastos.
+- Filtro por mes y año.
 
 Endpoints principales:
 
@@ -150,17 +228,18 @@ GET /api/dashboard/evolucion-gastos
 
 ---
 
-### 5. Presupuestos mensuales
+### 7. Presupuestos mensuales
 
-Permite definir presupuestos por categoría de gasto en un mes específico.
+Permite definir presupuestos por categoría de gasto para un mes específico.
 
-El sistema calcula automáticamente:
+El sistema calcula:
 
-* Monto presupuestado.
-* Monto gastado.
-* Monto disponible.
-* Porcentaje usado.
-* Alerta visual si se supera el presupuesto.
+- Monto presupuestado.
+- Monto gastado.
+- Monto disponible.
+- Porcentaje usado.
+- Estado del presupuesto.
+- Alerta visual si se supera el límite.
 
 Endpoints principales:
 
@@ -174,7 +253,33 @@ DELETE /api/presupuestos/:id
 
 ---
 
-### 6. Reportes mensuales
+### 8. Metas de ahorro
+
+Permite crear objetivos de ahorro y registrar avances.
+
+Funcionalidades:
+
+- Crear meta.
+- Editar meta.
+- Eliminar meta.
+- Registrar avance.
+- Ver porcentaje de progreso.
+- Marcar como completada automáticamente.
+
+Endpoints principales:
+
+```text
+GET    /api/metas
+GET    /api/metas/:id
+POST   /api/metas
+PUT    /api/metas/:id
+PATCH  /api/metas/:id/avance
+DELETE /api/metas/:id
+```
+
+---
+
+### 9. Reportes mensuales
 
 Permite consultar movimientos financieros por mes, año y tipo.
 
@@ -186,7 +291,7 @@ INGRESO
 GASTO
 ```
 
-También permite exportar los movimientos del periodo en formato CSV.
+También permite exportar reportes en formato CSV.
 
 Endpoint principal:
 
@@ -214,12 +319,14 @@ Moni/
 │   │   ├── middlewares/
 │   │   ├── models/
 │   │   ├── routes/
+│   │   ├── services/
 │   │   └── server.js
 │   ├── .env.example
 │   ├── package.json
 │   └── package-lock.json
 │
 ├── frontend/
+│   ├── public/
 │   ├── src/
 │   │   ├── api/
 │   │   │   └── apiClient.ts
@@ -247,17 +354,17 @@ Moni/
 
 ## Requisitos previos
 
-Antes de ejecutar el proyecto, se necesita tener instalado:
+Para ejecutar el proyecto localmente se necesita:
 
-* Node.js
-* npm
-* SQL Server
-* SQL Server Management Studio
-* Git
+- Node.js
+- npm
+- SQL Server
+- SQL Server Management Studio
+- Git
 
 ---
 
-## Instalación y ejecución local
+## Instalación local
 
 ### 1. Clonar el repositorio
 
@@ -268,7 +375,7 @@ cd Moni
 
 ---
 
-## Configuración de la base de datos
+## Configuración de base de datos
 
 El proyecto utiliza SQL Server.
 
@@ -285,61 +392,67 @@ Luego ejecuta el script ubicado en:
 database/schema.sql
 ```
 
-Este script debe crear los schemas y tablas principales:
+El script crea los schemas y tablas principales del sistema.
+
+Tablas principales:
 
 ```text
 auth.Usuario
 auth.TokenRecuperacionPassword
+auth.TokenVerificacionEmail
 finance.Categoria
 finance.Movimiento
 finance.PresupuestoMensual
+finance.MetaAhorro
 ```
 
 ---
 
 ## Configuración del backend
 
-Ingresa a la carpeta del backend:
+Ingresar a la carpeta del backend:
 
 ```bash
 cd backend
 npm install
 ```
 
-El comando `npm install` instalará las dependencias necesarias del backend, como:
+Crear un archivo `.env` dentro de la carpeta `backend`, tomando como referencia `.env.example`.
 
-```text
-express
-cors
-dotenv
-mssql
-bcryptjs
-jsonwebtoken
-nodemon
-```
-
-Crea un archivo `.env` dentro de la carpeta `backend`, tomando como base el archivo `.env.example`.
-
-Ejemplo:
+Ejemplo de variables:
 
 ```env
 PORT=3000
 
-DB_USER=sa
-DB_PASSWORD=tu_password
+DB_USER=tu_usuario_sql
+DB_PASSWORD=tu_password_sql
 DB_SERVER=localhost
 DB_DATABASE=FinTrackPersonalDB
 DB_PORT=1433
+DB_ENCRYPT=false
+DB_TRUST_SERVER_CERTIFICATE=true
 
 JWT_SECRET=tu_jwt_secret_seguro
 JWT_EXPIRES_IN=8h
 
 FRONTEND_URL=http://localhost:5173
 PASSWORD_RESET_EXPIRES_MINUTES=30
+EMAIL_VERIFICATION_EXPIRES_MINUTES=60
+
 MAIL_MODE=dev
+
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_SECURE=false
+MAIL_USER=tu_correo@gmail.com
+MAIL_PASS=tu_password_de_aplicacion
+MAIL_FROM_NAME=Moni
+MAIL_FROM_EMAIL=tu_correo@gmail.com
+
+CORS_ORIGINS=http://localhost:5173
 ```
 
-Ejecuta el backend:
+Ejecutar backend:
 
 ```bash
 npm run dev
@@ -355,26 +468,14 @@ http://localhost:3000
 
 ## Configuración del frontend
 
-En otra terminal, ingresa a la carpeta del frontend:
+Ingresar a la carpeta del frontend:
 
 ```bash
 cd frontend
 npm install
 ```
 
-El comando `npm install` instalará las dependencias necesarias del frontend, como:
-
-```text
-react
-react-dom
-react-router-dom
-axios
-recharts
-vite
-typescript
-```
-
-Crea un archivo `.env` dentro de la carpeta `frontend`, tomando como base el archivo `.env.example`.
+Crear un archivo `.env` dentro de la carpeta `frontend`, tomando como referencia `.env.example`.
 
 Ejemplo:
 
@@ -382,7 +483,7 @@ Ejemplo:
 VITE_API_URL=http://localhost:3000/api
 ```
 
-Ejecuta el frontend:
+Ejecutar frontend:
 
 ```bash
 npm run dev
@@ -398,84 +499,70 @@ http://localhost:5173
 
 ## Variables de entorno
 
-### Backend
+Los archivos `.env` reales no se suben al repositorio.
 
-Archivo:
+Solo se incluyen archivos `.env.example` para documentar qué variables necesita el proyecto.
+
+### Backend
 
 ```text
 backend/.env.example
 ```
 
-Contenido sugerido:
-
-```env
-PORT=3000
-
-DB_USER=tu_usuario_sql
-DB_PASSWORD=tu_password_sql
-DB_SERVER=localhost
-DB_DATABASE=FinTrackPersonalDB
-DB_PORT=1433
-
-JWT_SECRET=tu_jwt_secret_seguro
-JWT_EXPIRES_IN=8h
-
-FRONTEND_URL=http://localhost:5173
-PASSWORD_RESET_EXPIRES_MINUTES=30
-MAIL_MODE=dev
-```
-
 ### Frontend
-
-Archivo:
 
 ```text
 frontend/.env.example
 ```
 
-Contenido sugerido:
+Importante:
 
-```env
-VITE_API_URL=http://localhost:3000/api
+```text
+Nunca subir claves reales, contraseñas, tokens, datos de Azure, contraseñas de aplicación de Gmail ni secretos JWT.
 ```
 
 ---
 
-## Recuperación de contraseña
+## Seguridad implementada
 
-En modo desarrollo, Moni genera un enlace de recuperación y lo devuelve directamente en la respuesta del backend.
-
-Ejemplo de respuesta:
-
-```json
-{
-  "mensaje": "Si el correo existe, se generó un enlace de recuperación.",
-  "resetLink": "http://localhost:5173/reset-password/token"
-}
-```
-
-Luego el usuario ingresa al enlace, escribe una nueva contraseña y el sistema actualiza el `password_hash`.
-
-En producción, este flujo puede adaptarse para enviar el enlace por correo electrónico usando Gmail, SMTP o un proveedor de correo transaccional.
+- Contraseñas almacenadas con hash usando BcryptJS.
+- Autenticación mediante JWT.
+- Rutas privadas protegidas con middleware.
+- Separación de datos por usuario autenticado.
+- Verificación de correo mediante token temporal.
+- Recuperación de contraseña mediante token temporal.
+- Tokens almacenados como hash.
+- Expiración de enlaces de verificación y recuperación.
+- Invalidación de tokens antiguos.
+- Validación de propiedad de datos por usuario.
+- Variables sensibles protegidas mediante `.env`.
 
 ---
 
 ## Flujo principal de uso
 
 ```text
-1. El usuario crea una cuenta.
-2. Inicia sesión.
-3. Crea categorías de ingreso y gasto.
-4. Registra movimientos financieros.
-5. Visualiza el dashboard mensual.
-6. Define presupuestos por categoría.
-7. Consulta reportes filtrables.
-8. Exporta los reportes en CSV.
+1. El usuario entra a la homepage.
+2. Crea una cuenta.
+3. Recibe un correo de verificación.
+4. Verifica su cuenta.
+5. Inicia sesión.
+6. Crea categorías de ingreso y gasto.
+7. Registra movimientos financieros.
+8. Visualiza el resumen mensual.
+9. Define presupuestos por categoría.
+10. Crea metas de ahorro.
+11. Consulta reportes.
+12. Exporta reportes en CSV.
 ```
 
 ---
 
 ## Capturas del sistema
+
+### Homepage
+
+![Homepage](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/home.PNG)
 
 ### Login
 
@@ -485,13 +572,17 @@ En producción, este flujo puede adaptarse para enviar el enlace por correo elec
 
 ![Registro](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/registro.PNG)
 
+### Verificación de correo
+
+![Verificación de correo](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/verificacion-email.PNG)
+
 ### Recuperación de contraseña
 
 ![Recuperación de contraseña](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/recuperacion-password.PNG)
 
 ### Resumen financiero
 
-![Dashboard](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/dashboard.PNG)
+![Resumen](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/dashboard.PNG)
 
 ### Gestión de categorías
 
@@ -505,34 +596,42 @@ En producción, este flujo puede adaptarse para enviar el enlace por correo elec
 
 ![Presupuestos](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/presupuestos.PNG)
 
+### Metas de ahorro
+
+![Metas](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/metas.PNG)
+
 ### Reportes mensuales
 
 ![Reportes](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/reportes.PNG)
 
+### Perfil de usuario
+
+![Perfil](https://raw.githubusercontent.com/enleam/Moni/main/docs/screenshots/perfil.PNG)
+
 ---
 
-## Seguridad implementada
+## Despliegue previsto
 
-* Contraseñas almacenadas con hash usando BcryptJS.
-* Autenticación mediante JWT.
-* Rutas privadas protegidas con middleware.
-* Separación de datos por usuario autenticado.
-* Recuperación de contraseña mediante token temporal.
-* Tokens de recuperación almacenados como hash.
-* Expiración de enlaces de recuperación.
-* Invalidación de tokens antiguos al generar uno nuevo.
+El despliegue del sistema se plantea con la siguiente arquitectura:
+
+```text
+Frontend: Vercel
+Backend: Render
+Base de datos: Azure SQL Database
+```
 
 ---
 
 ## Consideraciones técnicas
 
-* Las eliminaciones se manejan mediante baja lógica usando el campo `activo`.
-* Cada usuario solo puede acceder a sus propios datos.
-* Los presupuestos solo pueden asociarse a categorías de tipo `GASTO`.
-* El dashboard respeta los filtros de mes y año.
-* Los reportes pueden filtrarse por `TODOS`, `INGRESO` o `GASTO`.
-* El archivo `.env` no debe subirse al repositorio.
-* Los archivos `.env.example` sí se incluyen para documentar la configuración necesaria.
+- Las eliminaciones se manejan mediante baja lógica usando el campo `activo`.
+- Cada usuario solo puede acceder a sus propios registros.
+- Los presupuestos se asocian a categorías de tipo `GASTO`.
+- Las metas se completan automáticamente al alcanzar el monto objetivo.
+- El resumen financiero respeta filtros de mes y año.
+- Los reportes pueden filtrarse por tipo de movimiento.
+- El sistema usa interceptores de Axios para adjuntar el token JWT.
+- El frontend maneja redirección automática si el token es inválido o expiró.
 
 ---
 
@@ -554,40 +653,55 @@ npm install
 npm run dev
 ```
 
+### Git
+
+```bash
+git status
+git add .
+git commit -m "feat: actualizar documentacion de Moni"
+git push
+```
+
 ---
 
 ## Estado del proyecto
 
-MVP completado.
+Versión 1.0 completada.
 
 Funcionalidades implementadas:
 
-* Autenticación.
-* Recuperación de contraseña.
-* CRUD de categorías.
-* CRUD de movimientos financieros.
-* Dashboard financiero.
-* Presupuestos mensuales.
-* Reportes mensuales.
-* Exportación CSV.
-* Modal reutilizable de confirmación.
-* Sidebar con opción activa.
-* Interfaz visual mejorada.
+- Homepage pública.
+- Registro con verificación de correo.
+- Login con JWT.
+- Recuperación de contraseña por Gmail.
+- CRUD de categorías.
+- CRUD de movimientos financieros.
+- Resumen financiero.
+- Presupuestos mensuales.
+- Metas de ahorro.
+- Reportes mensuales.
+- Exportación CSV.
+- Perfil de usuario.
+- Cambio de contraseña.
+- Modal reutilizable de confirmación.
+- Sidebar con navegación activa.
+- Diseño responsive.
+- Logo y favicon personalizado.
 
 ---
 
 ## Próximas mejoras
 
-* Envío real de correos para recuperación de contraseña.
-* Despliegue del frontend en Vercel.
-* Despliegue del backend en Render.
-* Migración de base de datos local a Azure SQL Database.
-* Dockerización del proyecto.
-* Exportación de reportes en PDF.
-* Modo oscuro.
-* Mejoras responsive para móviles.
-* Filtros avanzados por rango de fechas.
-* Perfil de usuario editable.
+- Reportes en PDF.
+- Modo oscuro.
+- Filtros avanzados por rango de fechas.
+- Cuentas bancarias o billeteras.
+- Movimientos recurrentes.
+- Notificaciones internas.
+- Gráficos comparativos por periodos.
+- Mejoras de accesibilidad.
+- Pruebas automatizadas.
+- Dockerización del proyecto.
 
 ---
 
@@ -600,6 +714,10 @@ Universidad Nacional Mayor de San Marcos
 
 ---
 
-## Licencia
+## Uso y derechos
 
-Este proyecto se desarrolla con fines educativos y de portafolio.
+Este proyecto fue desarrollado con fines educativos y de portafolio.
+
+No se autoriza el uso comercial, redistribución o publicación de copias derivadas sin autorización del autor.
+
+© 2026 Moni. Todos los derechos reservados.
