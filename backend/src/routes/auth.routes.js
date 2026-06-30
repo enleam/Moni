@@ -5,7 +5,8 @@ const {
   iniciarSesion,
   obtenerPerfil,
   solicitarRecuperacionPassword,
-  restablecerPassword
+  restablecerPassword,
+  verificarEmail
 } = require('../controllers/auth.controller');
 
 const {
@@ -18,6 +19,7 @@ router.post('/register', registrarUsuario);
 router.post('/login', iniciarSesion);
 router.post('/forgot-password', solicitarRecuperacionPassword);
 router.post('/reset-password', restablecerPassword);
+router.get('/verify-email/:token', verificarEmail);
 router.get('/me', verificarToken, obtenerPerfil);
 
 module.exports = router;

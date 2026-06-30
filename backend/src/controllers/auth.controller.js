@@ -10,11 +10,17 @@ const {
   crearTokenRecuperacionPassword,
   buscarTokenRecuperacionValido,
   marcarTokenRecuperacionUsado,
-  actualizarPasswordUsuario
+  actualizarPasswordUsuario,
+  invalidarTokensVerificacionUsuario,
+  crearTokenVerificacionEmail,
+  buscarTokenVerificacionValido,
+  marcarTokenVerificacionUsado,
+  marcarEmailVerificado
 } = require('../models/auth.model');
 
 const {
-  enviarCorreoRecuperacionPassword
+  enviarCorreoRecuperacionPassword,
+  enviarCorreoVerificacionEmail
 } = require('../services/mail.service');
 
 const generarToken = (usuario) => {
@@ -28,6 +34,20 @@ const generarToken = (usuario) => {
       expiresIn: process.env.JWT_EXPIRES_IN || '8h'
     }
   );
+};
+
+const generarTokenSeguro = () => {
+  const token = crypto.randomBytes(32).toString('hex');
+
+  const token_hash = crypto
+    .createHash('sha256')
+    .update(token)
+    .digest('hex');
+
+  return {
+    token,
+    token_hash
+  };
 };
 
 const registrarUsuario = async (req, res) => {
@@ -46,7 +66,10 @@ const registrarUsuario = async (req, res) => {
       });
     }
 
-    const usuarioExistente = await buscarUsuarioPorCorreo(correo.trim());
+    const correoLimpio = correo.trim();
+    const nombreLimpio = nombre.trim();
+
+    const usuarioExistente = await buscarUsuarioPorCorreo(correoLimpio);
 
     if (usuarioExistente) {
       return res.status(409).json({
@@ -58,18 +81,47 @@ const registrarUsuario = async (req, res) => {
     const password_hash = await bcrypt.hash(password, salt);
 
     const nuevoUsuario = await crearUsuario({
-      nombre: nombre.trim(),
-      correo: correo.trim(),
+      nombre: nombreLimpio,
+      correo: correoLimpio,
       password_hash
     });
 
-    const token = generarToken(nuevoUsuario);
+    await invalidarTokensVerificacionUsuario(nuevoUsuario.usuario_id);
 
-    return res.status(201).json({
-      mensaje: 'Usuario registrado correctamente.',
-      token,
-      usuario: nuevoUsuario
+    const { token, token_hash } = generarTokenSeguro();
+
+    const minutosExpiracion = Number(
+      process.env.EMAIL_VERIFICATION_EXPIRES_MINUTES || 60
+    );
+
+    const fecha_expiracion = new Date(
+      Date.now() + minutosExpiracion * 60 * 1000
+    );
+
+    await crearTokenVerificacionEmail({
+      usuario_id: nuevoUsuario.usuario_id,
+      token_hash,
+      fecha_expiracion
     });
+
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+    const verificationLink = `${frontendUrl}/verificar-email/${token}`;
+
+    await enviarCorreoVerificacionEmail({
+      correoDestino: nuevoUsuario.correo,
+      nombre: nuevoUsuario.nombre,
+      verificationLink
+    });
+
+    const respuesta = {
+      mensaje: 'Usuario registrado correctamente. Revisa tu correo para verificar tu cuenta.'
+    };
+
+    if (process.env.MAIL_MODE !== 'gmail') {
+      respuesta.verificationLink = verificationLink;
+    }
+
+    return res.status(201).json(respuesta);
 
   } catch (error) {
     console.error('Error al registrar usuario:', error);
@@ -112,6 +164,12 @@ const iniciarSesion = async (req, res) => {
     if (!passwordValida) {
       return res.status(401).json({
         mensaje: 'Credenciales incorrectas.'
+      });
+    }
+
+    if (!usuario.email_verificado) {
+      return res.status(403).json({
+        mensaje: 'Debes verificar tu correo antes de iniciar sesión.'
       });
     }
 
@@ -201,7 +259,7 @@ const solicitarRecuperacionPassword = async (req, res) => {
 
     await invalidarTokensRecuperacionUsuario(usuario.usuario_id);
 
-    const { token, token_hash } = generarTokenRecuperacion();
+    const { token, token_hash } = generarTokenSeguro();
 
     const minutosExpiracion = Number(
       process.env.PASSWORD_RESET_EXPIRES_MINUTES || 30
@@ -303,10 +361,60 @@ const restablecerPassword = async (req, res) => {
   }
 };
 
+const verificarEmail = async (req, res) => {
+  try {
+    const { token } = req.params;
+
+    if (!token) {
+      return res.status(400).json({
+        mensaje: 'Token de verificación obligatorio.'
+      });
+    }
+
+    const token_hash = crypto
+      .createHash('sha256')
+      .update(token)
+      .digest('hex');
+
+    const tokenVerificacion = await buscarTokenVerificacionValido(token_hash);
+
+    if (!tokenVerificacion) {
+      return res.status(400).json({
+        mensaje: 'El enlace de verificación es inválido o ha expirado.'
+      });
+    }
+
+    const usuarioVerificado = await marcarEmailVerificado(
+      tokenVerificacion.usuario_id
+    );
+
+    if (!usuarioVerificado) {
+      return res.status(404).json({
+        mensaje: 'Usuario no encontrado.'
+      });
+    }
+
+    await marcarTokenVerificacionUsado(tokenVerificacion.token_id);
+
+    return res.status(200).json({
+      mensaje: 'Correo verificado correctamente. Ya puedes iniciar sesión.',
+      usuario: usuarioVerificado
+    });
+
+  } catch (error) {
+    console.error('Error al verificar correo:', error);
+
+    return res.status(500).json({
+      mensaje: 'Error interno al verificar correo.'
+    });
+  }
+};
+
 module.exports = {
   registrarUsuario,
   iniciarSesion,
   obtenerPerfil,
   solicitarRecuperacionPassword,
-  restablecerPassword
+  restablecerPassword,
+  verificarEmail
 };

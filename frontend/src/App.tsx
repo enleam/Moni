@@ -11,6 +11,7 @@ import ResetPassword from './pages/ResetPassword';
 import Perfil from './pages/Perfil';
 import Metas from './pages/Metas';
 import Home from './pages/Home';
+import VerificarEmail from './pages/VerificarEmail';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 
@@ -26,6 +27,8 @@ function App() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
 
       <Route path="/reset-password/:token" element={<ResetPassword />} />
+
+      <Route path="/verificar-email/:token" element={<VerificarEmail />} />
 
       <Route
         path="/dashboard"

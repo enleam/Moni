@@ -6,6 +6,7 @@ export interface Usuario {
   correo: string;
   fecha_registro?: string;
   activo?: boolean;
+  email_verificado?: boolean;
 }
 
 export interface AuthResponse {
@@ -20,6 +21,11 @@ export interface RegistroData {
   password: string;
 }
 
+export interface RegistroResponse {
+  mensaje: string;
+  verificationLink?: string;
+}
+
 export interface LoginData {
   correo: string;
   password: string;
@@ -27,8 +33,12 @@ export interface LoginData {
 
 export const registrarUsuario = async (
   data: RegistroData
-): Promise<AuthResponse> => {
-  const response = await apiClient.post<AuthResponse>('/auth/register', data);
+): Promise<RegistroResponse> => {
+  const response = await apiClient.post<RegistroResponse>(
+    '/auth/register',
+    data
+  );
+
   return response.data;
 };
 
@@ -42,6 +52,13 @@ export const iniciarSesion = async (
 export const obtenerPerfil = async (): Promise<Usuario> => {
   const response = await apiClient.get('/auth/me');
   return response.data.usuario;
+};
+
+export const verificarEmail = async (
+  token: string
+): Promise<{ mensaje: string }> => {
+  const response = await apiClient.get(`/auth/verify-email/${token}`);
+  return response.data;
 };
 
 export const guardarSesion = (token: string, usuario: Usuario) => {
