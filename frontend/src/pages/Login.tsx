@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { iniciarSesion, guardarSesion } from '../services/authService';
+import AuthLayout from '../components/AuthLayout';
 
 function Login() {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ function Login() {
   };
 
   return (
-    <div className="auth-page">
+    <AuthLayout>
       <div className="auth-card">
         <Link to="/" className="auth-logo-link">
           <h1>Moni</h1>
@@ -83,7 +84,7 @@ function Login() {
           ¿No tienes cuenta? <Link to="/registro">Regístrate</Link>
         </p>
       </div>
-    </div>
+    </AuthLayout>
   );
 }
 

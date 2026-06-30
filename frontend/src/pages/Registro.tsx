@@ -3,6 +3,7 @@ import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 
 import { registrarUsuario } from '../services/authService';
+import AuthLayout from '../components/AuthLayout';
 
 function Registro() {
   const [nombre, setNombre] = useState('');
@@ -64,8 +65,8 @@ function Registro() {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-card">
+    <AuthLayout>
+      <div className="auth-card auth-card-register">
         <Link to="/" className="auth-logo-link">
           <h1>Moni</h1>
         </Link>
@@ -149,7 +150,7 @@ function Registro() {
           ¿Ya tienes cuenta? <Link to="/login">Inicia sesión</Link>
         </p>
       </div>
-    </div>
+    </AuthLayout>
   );
 }
 

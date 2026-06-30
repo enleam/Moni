@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import { verificarEmail } from '../services/authService';
+import AuthLayout from '../components/AuthLayout';
 
 function VerificarEmail() {
   const { token } = useParams();
@@ -39,7 +40,7 @@ function VerificarEmail() {
   }, [token]);
 
   return (
-    <div className="auth-page">
+    <AuthLayout>
       <div className="auth-card">
         <h1>Moni</h1>
         <p className="auth-subtitle">Verificación de correo</p>
@@ -60,7 +61,7 @@ function VerificarEmail() {
           <Link to="/login">Ir a iniciar sesión</Link>
         </p>
       </div>
-    </div>
+    </AuthLayout>
   );
 }
 

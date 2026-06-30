@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import {
   solicitarRecuperacionPassword
 } from '../services/authService';
+import AuthLayout from '../components/AuthLayout';
 
 function ForgotPassword() {
   const [correo, setCorreo] = useState('');
@@ -41,7 +42,7 @@ function ForgotPassword() {
   };
 
   return (
-    <div className="auth-page">
+    <AuthLayout>
       <div className="auth-card">
         <h1>Moni</h1>
         <p className="auth-subtitle">Gestión de gastos personales</p>
@@ -84,7 +85,7 @@ function ForgotPassword() {
           <Link to="/login">Volver al login</Link>
         </p>
       </div>
-    </div>
+    </AuthLayout>
   );
 }
 

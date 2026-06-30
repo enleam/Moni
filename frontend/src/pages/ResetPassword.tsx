@@ -5,6 +5,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   restablecerPassword
 } from '../services/authService';
+import AuthLayout from '../components/AuthLayout';
 
 function ResetPassword() {
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ function ResetPassword() {
   };
 
   return (
-    <div className="auth-page">
+    <AuthLayout>
       <div className="auth-card">
         <h1>Moni</h1>
         <p className="auth-subtitle">Gestión de gastos personales</p>
@@ -104,7 +105,7 @@ function ResetPassword() {
           <Link to="/login">Volver al login</Link>
         </p>
       </div>
-    </div>
+    </AuthLayout>
   );
 }
 
