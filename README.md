@@ -653,15 +653,6 @@ npm install
 npm run dev
 ```
 
-### Git
-
-```bash
-git status
-git add .
-git commit -m "feat: actualizar documentacion de Moni"
-git push
-```
-
 ---
 
 ## Estado del proyecto
