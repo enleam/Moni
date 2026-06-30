@@ -6,7 +6,7 @@ function Sidebar() {
 
   const handleCerrarSesion = () => {
     cerrarSesion();
-    navigate('/login');
+    navigate('/');
   };
 
   return (

@@ -10,13 +10,14 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import Perfil from './pages/Perfil';
 import Metas from './pages/Metas';
+import Home from './pages/Home';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="/" element={<Home />} />
 
       <Route path="/login" element={<Login />} />
 

@@ -39,7 +39,9 @@ function Login() {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <h1>Moni</h1>
+        <Link to="/" className="auth-logo-link">
+          <h1>Moni</h1>
+        </Link>
         <p className="auth-subtitle">Gestión de gastos personales</p>
         <h2>Iniciar sesión</h2>
 
