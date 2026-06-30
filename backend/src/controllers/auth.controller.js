@@ -13,6 +13,10 @@ const {
   actualizarPasswordUsuario
 } = require('../models/auth.model');
 
+const {
+  enviarCorreoRecuperacionPassword
+} = require('../services/mail.service');
+
 const generarToken = (usuario) => {
   return jwt.sign(
     {
@@ -42,7 +46,7 @@ const registrarUsuario = async (req, res) => {
       });
     }
 
-    const usuarioExistente = await buscarUsuarioPorCorreo(correo);
+    const usuarioExistente = await buscarUsuarioPorCorreo(correo.trim());
 
     if (usuarioExistente) {
       return res.status(409).json({
@@ -54,8 +58,8 @@ const registrarUsuario = async (req, res) => {
     const password_hash = await bcrypt.hash(password, salt);
 
     const nuevoUsuario = await crearUsuario({
-      nombre,
-      correo,
+      nombre: nombre.trim(),
+      correo: correo.trim(),
       password_hash
     });
 
@@ -86,7 +90,7 @@ const iniciarSesion = async (req, res) => {
       });
     }
 
-    const usuario = await buscarUsuarioPorCorreo(correo);
+    const usuario = await buscarUsuarioPorCorreo(correo.trim());
 
     if (!usuario) {
       return res.status(401).json({
@@ -176,17 +180,22 @@ const solicitarRecuperacionPassword = async (req, res) => {
   try {
     const { correo } = req.body;
 
-    if (!correo) {
+    if (!correo || !correo.trim()) {
       return res.status(400).json({
         mensaje: 'El correo es obligatorio.'
       });
     }
 
-    const usuario = await buscarUsuarioPorCorreo(correo);
+    const correoLimpio = correo.trim();
+
+    const mensajeGenerico = 
+      'Si el correo existe, se enviaron instrucciones para recuperar la contraseña.';
+
+    const usuario = await buscarUsuarioPorCorreo(correoLimpio);
 
     if (!usuario || !usuario.activo) {
       return res.status(200).json({
-        mensaje: 'Si el correo existe, se generó un enlace de recuperación.'
+        mensaje: mensajeGenerico
       });
     }
 
@@ -209,13 +218,23 @@ const solicitarRecuperacionPassword = async (req, res) => {
     });
 
     const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
-
     const resetLink = `${frontendUrl}/reset-password/${token}`;
 
-    return res.status(200).json({
-      mensaje: 'Si el correo existe, se generó un enlace de recuperación.',
+    await enviarCorreoRecuperacionPassword({
+      correoDestino: usuario.correo,
+      nombre: usuario.nombre,
       resetLink
     });
+
+    const respuesta = {
+      mensaje: mensajeGenerico
+    };
+
+    if (process.env.MAIL_MODE !== 'gmail') {
+      respuesta.resetLink = resetLink;
+    }
+
+    return res.status(200).json(respuesta);
 
   } catch (error) {
     console.error('Error al solicitar recuperación de contraseña:', error);
